@@ -21,3 +21,7 @@ uv run bash src/download.sh
 ```
 
 Once this is run, the data is ready 
+
+```{bash}
+ls data/processed/1-world-population-data-madagascar
+```
