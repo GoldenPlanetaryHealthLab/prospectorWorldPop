@@ -1,0 +1,5 @@
+mkdir -p data/processed/1-world-population-data-madagascar
+cd data/processed/1-world-population-data-madagascar
+for year in {2015..2025}; do
+	wget -nc "https://data.worldpop.org/GIS/Population/Global_2015_2030/R2025A/${year}/MDG/v1/100m/constrained/mdg_pop_${year}_CN_100m_R2025A_v1.tif"
+done
