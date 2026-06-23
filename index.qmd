@@ -1,8 +1,10 @@
 ---
-title: "prospectorWorldPop"
+title: "World Population Data Prospector"
 execute:
   eval: false
 ---
+
+## How the Data Got Here
 
 The World Population Prospector is dead simple. It only sources the following bashscript:
 
@@ -14,14 +16,65 @@ for year in {2015..2025}; do
 done
 ```
 
-We can run this with the uv tool:
+This was run with the `uv` tool:
 
 ```bash
 uv run bash src/download.sh
 ```
 
-Once this is run, the data is ready 
+Once this is run, the data is ready. We used `datalad` to
+begin version control:
 
-```{bash}
-ls data/processed/1-world-population-data-madagascar
+```bash
+datalad create --description "Madagascar Population Data from 2015 to 2025, from WorldPop.Org" -d data/processed/1-world-population-data-madagascar
+``` 
+
+```bash
+(prospectorWorldPop) ➜  prospectorWorldPop git:(main) ✗ tree data
+data
+├── interim
+├── processed
+│   └── datalad
+│       └── 1-world-population-data-madagascar
+│           ├── mdg_pop_2015_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/xv/mk/MD5E-s53323988--f18ed8f06d8c5644fa9545ee081d694f.tif/MD5E-s53323988--f18ed8f06d8c5644fa9545ee081d694f.tif
+│           ├── mdg_pop_2016_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/Kx/G3/MD5E-s54655113--9be33b4f2464fca00e71977a174c3d25.tif/MD5E-s54655113--9be33b4f2464fca00e71977a174c3d25.tif
+│           ├── mdg_pop_2017_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/F9/x4/MD5E-s55148953--d9c5cfc6f0425ba302a3fdf7633b7945.tif/MD5E-s55148953--d9c5cfc6f0425ba302a3fdf7633b7945.tif
+│           ├── mdg_pop_2018_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/72/zJ/MD5E-s55526665--96d715438a086b061aeef8c2801b53dd.tif/MD5E-s55526665--96d715438a086b061aeef8c2801b53dd.tif
+│           ├── mdg_pop_2019_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/V0/2w/MD5E-s55912437--6e6e3f0acf801391c9c298a67984a9e5.tif/MD5E-s55912437--6e6e3f0acf801391c9c298a67984a9e5.tif
+│           ├── mdg_pop_2020_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/g6/vz/MD5E-s56234321--165bfc71c9a825c3efc8fed1ca11359d.tif/MD5E-s56234321--165bfc71c9a825c3efc8fed1ca11359d.tif
+│           ├── mdg_pop_2021_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/FF/76/MD5E-s56432429--fc8ec87f19334ebc2a84fc92f3955477.tif/MD5E-s56432429--fc8ec87f19334ebc2a84fc92f3955477.tif
+│           ├── mdg_pop_2022_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/W7/v3/MD5E-s56604771--7b28e04c5ee93d5caeaa30865ecd530a.tif/MD5E-s56604771--7b28e04c5ee93d5caeaa30865ecd530a.tif
+│           ├── mdg_pop_2023_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/6X/J6/MD5E-s56794041--863068d9901e071acb549d82bc01f440.tif/MD5E-s56794041--863068d9901e071acb549d82bc01f440.tif
+│           ├── mdg_pop_2024_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/KV/VF/MD5E-s56929621--87b1f848bac413258c18ebd4ed5b6a72.tif/MD5E-s56929621--87b1f848bac413258c18ebd4ed5b6a72.tif
+│           └── mdg_pop_2025_CN_100m_R2025A_v1.tif -> ../.git/annex/objects/w0/1z/MD5E-s57081947--22e130dbc04dd9ef7d941a56532fdcad.tif/MD5E-s57081947--22e130dbc04dd9ef7d941a56532fdcad.tif
+└── raw
 ```
+
+We used `datalad` to confirm and manage the addition of the data to the Gold Mine
+
+```sh
+mkdir -p /n/holylabs/LABS/cgolden_lab/Lab/frontier/gold_mine/02_prospects/WorldPop-dot-org
+datalad create-sibling -d data/processed/datalad --name prospect --existing reconfigure /n/holylabs/LABS/cgolden_lab/Lab/frontier/gold_mine/02_prospects/WorldPop-dot-org
+```
+
+And pushed the results:
+
+```sh
+datalad push -d data/processed/datalad --to prospect
+```
+
+This keeps the data up to date and accessible, while retaining
+version control over which versions of the data are "most recent".
+
+To make sure the data is available, we leave the data in an `unlock`
+state. While this means that anyone can modify the data, we have
+two stop-gaps that prevent errors:
+
+1. We have established a culture of data staging through manifests
+using the `stagecoach` tool, meaning that most lab members are
+unlikely to instinctively touch the data by hand. Instead, they're
+more likely to use `stagecoach` to symlink the data into their project.
+2. We still have this repository of the raw data generation procedure,
+including the git trail of what we did to get the data into the prospect
+folder. If anything were to go wrong in `02_Prospects`, we still have
+this repo.
