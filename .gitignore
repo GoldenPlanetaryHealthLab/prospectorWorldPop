@@ -3,3 +3,7 @@
 
 .spack-env/
 
+
+/.quarto/
+/_site/
+
