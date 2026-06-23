@@ -12,5 +12,89 @@
     "title": "World Population Data Prospector",
     "section": "",
     "text": "The World Population Prospector is dead simple. It only sources the following bashscript:\nmkdir -p data/processed/1-world-population-data-madagascar\ncd data/processed/1-world-population-data-madagascar\nfor year in {2015..2025}; do\n    wget -nc \"https://data.worldpop.org/GIS/Population/Global_2015_2030/R2025A/${year}/MDG/v1/100m/constrained/mdg_pop_${year}_CN_100m_R2025A_v1.tifspack addo learn more about Quarto websites visit &lt;https://quarto.org/docs/websites&gt;.\ndone\nThis was run with the uv tool:\nuv run bash src/download.sh\nOnce this is run, the data is ready. We used datalad to begin version control:\ndatalad create --description \"Madagascar Population Data from 2015 to 2025, from WorldPop.Org\" -d data/processed/1-world-population-data-madagascar\n(prospectorWorldPop) ➜  prospectorWorldPop git:(main) ✗ tree data\ndata\n├── interim\n├── processed\n│   └── datalad\n│       └── 1-world-population-data-madagascar\n│           ├── mdg_pop_2015_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/xv/mk/MD5E-s53323988--f18ed8f06d8c5644fa9545ee081d694f.tif/MD5E-s53323988--f18ed8f06d8c5644fa9545ee081d694f.tif\n│           ├── mdg_pop_2016_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/Kx/G3/MD5E-s54655113--9be33b4f2464fca00e71977a174c3d25.tif/MD5E-s54655113--9be33b4f2464fca00e71977a174c3d25.tif\n│           ├── mdg_pop_2017_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/F9/x4/MD5E-s55148953--d9c5cfc6f0425ba302a3fdf7633b7945.tif/MD5E-s55148953--d9c5cfc6f0425ba302a3fdf7633b7945.tif\n│           ├── mdg_pop_2018_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/72/zJ/MD5E-s55526665--96d715438a086b061aeef8c2801b53dd.tif/MD5E-s55526665--96d715438a086b061aeef8c2801b53dd.tif\n│           ├── mdg_pop_2019_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/V0/2w/MD5E-s55912437--6e6e3f0acf801391c9c298a67984a9e5.tif/MD5E-s55912437--6e6e3f0acf801391c9c298a67984a9e5.tif\n│           ├── mdg_pop_2020_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/g6/vz/MD5E-s56234321--165bfc71c9a825c3efc8fed1ca11359d.tif/MD5E-s56234321--165bfc71c9a825c3efc8fed1ca11359d.tif\n│           ├── mdg_pop_2021_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/FF/76/MD5E-s56432429--fc8ec87f19334ebc2a84fc92f3955477.tif/MD5E-s56432429--fc8ec87f19334ebc2a84fc92f3955477.tif\n│           ├── mdg_pop_2022_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/W7/v3/MD5E-s56604771--7b28e04c5ee93d5caeaa30865ecd530a.tif/MD5E-s56604771--7b28e04c5ee93d5caeaa30865ecd530a.tif\n│           ├── mdg_pop_2023_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/6X/J6/MD5E-s56794041--863068d9901e071acb549d82bc01f440.tif/MD5E-s56794041--863068d9901e071acb549d82bc01f440.tif\n│           ├── mdg_pop_2024_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/KV/VF/MD5E-s56929621--87b1f848bac413258c18ebd4ed5b6a72.tif/MD5E-s56929621--87b1f848bac413258c18ebd4ed5b6a72.tif\n│           └── mdg_pop_2025_CN_100m_R2025A_v1.tif -&gt; ../.git/annex/objects/w0/1z/MD5E-s57081947--22e130dbc04dd9ef7d941a56532fdcad.tif/MD5E-s57081947--22e130dbc04dd9ef7d941a56532fdcad.tif\n└── raw\nWe used datalad to confirm and manage the addition of the data to the Gold Mine\nmkdir -p /n/holylabs/LABS/cgolden_lab/Lab/frontier/gold_mine/02_prospects/WorldPop-dot-org\ndatalad create-sibling -d data/processed/datalad --name prospect --existing reconfigure /n/holylabs/LABS/cgolden_lab/Lab/frontier/gold_mine/02_prospects/WorldPop-dot-org\nAnd pushed the results:\ndatalad push -d data/processed/datalad --to prospect\nThis keeps the data up to date and accessible, while retaining version control over which versions of the data are “most recent”.\nTo make sure the data is available, we leave the data in an unlock state. While this means that anyone can modify the data, we have two stop-gaps that prevent errors:\n\nWe have established a culture of data staging through manifests using the stagecoach tool, meaning that most lab members are unlikely to instinctively touch the data by hand. Instead, they’re more likely to use stagecoach to symlink the data into their project.\nWe still have this repository of the raw data generation procedure, including the git trail of what we did to get the data into the prospect folder. If anything were to go wrong in 02_Prospects, we still have this repo."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About this Dataset",
+    "section": "",
+    "text": "Dataset name:\n#TODO\nShort description:\n#TODO: Describe what this dataset contains in 2–4 sentences.\nPrimary use case:\n#TODO: Explain the main research or operational question this dataset supports.\nDataset status:\n#TODO: draft / active development / reviewed / published / archived\nLast updated:\n#TODO: YYYY-MM-DD"
+  },
+  {
+    "objectID": "about.html#dataset-summary",
+    "href": "about.html#dataset-summary",
+    "title": "About this Dataset",
+    "section": "",
+    "text": "Dataset name:\n#TODO\nShort description:\n#TODO: Describe what this dataset contains in 2–4 sentences.\nPrimary use case:\n#TODO: Explain the main research or operational question this dataset supports.\nDataset status:\n#TODO: draft / active development / reviewed / published / archived\nLast updated:\n#TODO: YYYY-MM-DD"
+  },
+  {
+    "objectID": "about.html#should-you-use-this-dataset",
+    "href": "about.html#should-you-use-this-dataset",
+    "title": "About this Dataset",
+    "section": "Should You Use This Dataset?",
+    "text": "Should You Use This Dataset?\nUse this dataset if:\n\n#TODO\n#TODO\n#TODO\n\nDo not use this dataset if:\n\n#TODO\n#TODO\n#TODO\n\nKnown limitations:\n\n#TODO\n#TODO\n#TODO"
+  },
+  {
+    "objectID": "about.html#data-contents",
+    "href": "about.html#data-contents",
+    "title": "About this Dataset",
+    "section": "Data Contents",
+    "text": "Data Contents\n\nTables / Files\n\n\n\nPath\nDescription\nFormat\nUnit of observation\nKey columns\n\n\n\n\ndata/...\n#TODO\nCSV/Parquet/GeoTIFF/etc.\n#TODO\n#TODO\n\n\n\n\n\nKey Variables\n\n\n\nVariable\nDescription\nUnits / categories\nNotes\n\n\n\n\n#TODO\n#TODO\n#TODO\n#TODO"
+  },
+  {
+    "objectID": "about.html#spatial-and-temporal-coverage",
+    "href": "about.html#spatial-and-temporal-coverage",
+    "title": "About this Dataset",
+    "section": "Spatial and Temporal Coverage",
+    "text": "Spatial and Temporal Coverage\nGeographic coverage:\n#TODO\nSpatial resolution:\n#TODO\nTemporal coverage:\n#TODO\nTemporal resolution:\n#TODO"
+  },
+  {
+    "objectID": "about.html#provenance",
+    "href": "about.html#provenance",
+    "title": "About this Dataset",
+    "section": "Provenance",
+    "text": "Provenance\n\nSource Data\n\n\n\nSource\nDescription\nAccess URL / DOI\nDate accessed\n\n\n\n\n#TODO\n#TODO\n#TODO\n#TODO\n\n\n\n\n\nProcessing Summary\n#TODO: Summarize how raw/source data became this dataset.\nExample:\n\nDownloaded source data from #TODO.\nHarmonized variable names and units.\nFiltered records to #TODO.\nAggregated to #TODO.\nExported final dataset to #TODO."
+  },
+  {
+    "objectID": "about.html#reproducibility",
+    "href": "about.html#reproducibility",
+    "title": "About this Dataset",
+    "section": "Reproducibility",
+    "text": "Reproducibility\nPipeline / code repository:\n#TODO\nMain processing script or workflow:\n#TODO\nSoftware environment:\n#TODO: Docker / Singularity / renv / uv / conda / Spack\nRebuild command:\n#TODO"
+  },
+  {
+    "objectID": "about.html#datalad-information",
+    "href": "about.html#datalad-information",
+    "title": "About this Dataset",
+    "section": "DataLad Information",
+    "text": "DataLad Information\nThis dataset is managed with DataLad to preserve version history, file availability, and reproducible data access.\n\nDataset Location\n#TODO: datalad dataset path\n\n\nCurrent Dataset State\ngit -C path/to/dataset rev-parse HEAD\ngit -C path/to/dataset log --oneline --decorate -n 5\ndatalad -C path/to/dataset status\n\n\nSiblings / Remotes\ndatalad -C path/to/dataset siblings query\nKnown siblings:\n\n\n\n\n\n\n\n\n\n\nSibling\nPurpose\nContains Git history\nContains file content\nNotes\n\n\n\n\norigin\n#TODO\nyes/no\nyes/no\n#TODO\n\n\n#TODO\n#TODO\nyes/no\nyes/no\n#TODO\n\n\n\n\n\nGetting the Data\nClone the dataset:\ndatalad clone #TODO_URL path/to/local/dataset\nGet file content:\ndatalad -C path/to/local/dataset get .\nGet a specific file or folder:\ndatalad -C path/to/local/dataset get path/to/file\nCheck availability:\ndatalad -C path/to/local/dataset status --annex availability"
+  },
+  {
+    "objectID": "about.html#access-and-permissions",
+    "href": "about.html#access-and-permissions",
+    "title": "About this Dataset",
+    "section": "Access and Permissions",
+    "text": "Access and Permissions\nAccess level:\n#TODO: public / lab-internal / restricted / controlled access\nSensitive data:\n#TODO: yes/no; describe restrictions if applicable\nWho can use this dataset:\n#TODO\nHow to request access:\n#TODO"
+  },
+  {
+    "objectID": "about.html#recommended-citation",
+    "href": "about.html#recommended-citation",
+    "title": "About this Dataset",
+    "section": "Recommended Citation",
+    "text": "Recommended Citation\n#TODO: Provide citation, DOI, or preferred acknowledgement.\n#TODO"
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "About this Dataset",
+    "section": "Contact",
+    "text": "Contact\nDataset maintainer:\n#TODO\nLab / group:\n#TODO\nContact:\n#TODO"
+  },
+  {
+    "objectID": "about.html#changelog",
+    "href": "about.html#changelog",
+    "title": "About this Dataset",
+    "section": "Changelog",
+    "text": "Changelog\n\n\n\nDate\nChange\nPerson\n\n\n\n\nYYYY-MM-DD\n#TODO\n#TODO"
   }
 ]

@@ -2,10 +2,6 @@
 title: "About this Dataset"
 subtitle: "WorldPop.Org World Population 2015-2025"
 description: "Dataset overview, provenance, access, and usage guidance"
-format:
-  gfm:
-    toc: true
-    toc-depth: 3
 ---
 
 ## Dataset Summary

@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Dataset overview, provenance, access, and usage guidance">
 
-<title>World Population Data Prospector – prospectorWorldPop</title>
+<title>About this Dataset – prospectorWorldPop</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -128,11 +129,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link active" href="./about.html" aria-current="page"> 
 <span class="menu-text">About this Dataset</span></a>
   </li>  
 </ul>
@@ -151,7 +152,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-the-data-got-here" id="toc-how-the-data-got-here" class="nav-link active" data-scroll-target="#how-the-data-got-here">How the Data Got Here</a></li>
+  <li><a href="#dataset-summary" id="toc-dataset-summary" class="nav-link active" data-scroll-target="#dataset-summary">Dataset Summary</a></li>
+  <li><a href="#should-you-use-this-dataset" id="toc-should-you-use-this-dataset" class="nav-link" data-scroll-target="#should-you-use-this-dataset">Should You Use This Dataset?</a></li>
+  <li><a href="#data-contents" id="toc-data-contents" class="nav-link" data-scroll-target="#data-contents">Data Contents</a>
+  <ul class="collapse">
+  <li><a href="#tables-files" id="toc-tables-files" class="nav-link" data-scroll-target="#tables-files">Tables / Files</a></li>
+  <li><a href="#key-variables" id="toc-key-variables" class="nav-link" data-scroll-target="#key-variables">Key Variables</a></li>
+  </ul></li>
+  <li><a href="#spatial-and-temporal-coverage" id="toc-spatial-and-temporal-coverage" class="nav-link" data-scroll-target="#spatial-and-temporal-coverage">Spatial and Temporal Coverage</a></li>
+  <li><a href="#provenance" id="toc-provenance" class="nav-link" data-scroll-target="#provenance">Provenance</a>
+  <ul class="collapse">
+  <li><a href="#source-data" id="toc-source-data" class="nav-link" data-scroll-target="#source-data">Source Data</a></li>
+  <li><a href="#processing-summary" id="toc-processing-summary" class="nav-link" data-scroll-target="#processing-summary">Processing Summary</a></li>
+  </ul></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">Reproducibility</a></li>
+  <li><a href="#datalad-information" id="toc-datalad-information" class="nav-link" data-scroll-target="#datalad-information">DataLad Information</a>
+  <ul class="collapse">
+  <li><a href="#dataset-location" id="toc-dataset-location" class="nav-link" data-scroll-target="#dataset-location">Dataset Location</a></li>
+  <li><a href="#current-dataset-state" id="toc-current-dataset-state" class="nav-link" data-scroll-target="#current-dataset-state">Current Dataset State</a></li>
+  <li><a href="#siblings-remotes" id="toc-siblings-remotes" class="nav-link" data-scroll-target="#siblings-remotes">Siblings / Remotes</a></li>
+  <li><a href="#getting-the-data" id="toc-getting-the-data" class="nav-link" data-scroll-target="#getting-the-data">Getting the Data</a></li>
+  </ul></li>
+  <li><a href="#access-and-permissions" id="toc-access-and-permissions" class="nav-link" data-scroll-target="#access-and-permissions">Access and Permissions</a></li>
+  <li><a href="#recommended-citation" id="toc-recommended-citation" class="nav-link" data-scroll-target="#recommended-citation">Recommended Citation</a></li>
+  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
+  <li><a href="#changelog" id="toc-changelog" class="nav-link" data-scroll-target="#changelog">Changelog</a></li>
   </ul>
 </nav>
     </div>
@@ -160,9 +185,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">World Population Data Prospector</h1>
+<h1 class="title">About this Dataset</h1>
+<p class="subtitle lead">WorldPop.Org World Population 2015-2025</p>
 </div>
 
+<div>
+  <div class="description">
+    Dataset overview, provenance, access, and usage guidance
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -177,47 +208,252 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="how-the-data-got-here" class="level2">
-<h2 class="anchored" data-anchor-id="how-the-data-got-here">How the Data Got Here</h2>
-<p>The World Population Prospector is dead simple. It only sources the following bashscript:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> data/processed/1-world-population-data-madagascar</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> data/processed/1-world-population-data-madagascar</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year <span class="kw">in</span> <span class="dt">{</span><span class="dv">2015</span><span class="dt">..</span><span class="dv">2025</span><span class="dt">}</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">wget</span> <span class="at">-nc</span> <span class="st">"https://data.worldpop.org/GIS/Population/Global_2015_2030/R2025A/</span><span class="va">${year}</span><span class="st">/MDG/v1/100m/constrained/mdg_pop_</span><span class="va">${year}</span><span class="st">_CN_100m_R2025A_v1.tifspack addo learn more about Quarto websites visit &lt;https://quarto.org/docs/websites&gt;.</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This was run with the <code>uv</code> tool:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run bash src/download.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Once this is run, the data is ready. We used <code>datalad</code> to begin version control:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datalad</span> create <span class="at">--description</span> <span class="st">"Madagascar Population Data from 2015 to 2025, from WorldPop.Org"</span> <span class="at">-d</span> data/processed/1-world-population-data-madagascar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">prospectorWorldPop</span><span class="kw">)</span> <span class="ex">➜</span>  prospectorWorldPop git:<span class="er">(</span><span class="ex">main</span><span class="kw">)</span> <span class="ex">✗</span> tree data</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">data</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> interim</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> processed</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── datalad</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └── 1-world-population-data-madagascar</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           ├── mdg_pop_2015_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/xv/mk/MD5E-s53323988--f18ed8f06d8c5644fa9545ee081d694f.tif/MD5E-s53323988--f18ed8f06d8c5644fa9545ee081d694f.tif</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           ├── mdg_pop_2016_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/Kx/G3/MD5E-s54655113--9be33b4f2464fca00e71977a174c3d25.tif/MD5E-s54655113--9be33b4f2464fca00e71977a174c3d25.tif</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           ├── mdg_pop_2017_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/F9/x4/MD5E-s55148953--d9c5cfc6f0425ba302a3fdf7633b7945.tif/MD5E-s55148953--d9c5cfc6f0425ba302a3fdf7633b7945.tif</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           ├── mdg_pop_2018_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/72/zJ/MD5E-s55526665--96d715438a086b061aeef8c2801b53dd.tif/MD5E-s55526665--96d715438a086b061aeef8c2801b53dd.tif</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           ├── mdg_pop_2019_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/V0/2w/MD5E-s55912437--6e6e3f0acf801391c9c298a67984a9e5.tif/MD5E-s55912437--6e6e3f0acf801391c9c298a67984a9e5.tif</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           ├── mdg_pop_2020_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/g6/vz/MD5E-s56234321--165bfc71c9a825c3efc8fed1ca11359d.tif/MD5E-s56234321--165bfc71c9a825c3efc8fed1ca11359d.tif</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           ├── mdg_pop_2021_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/FF/76/MD5E-s56432429--fc8ec87f19334ebc2a84fc92f3955477.tif/MD5E-s56432429--fc8ec87f19334ebc2a84fc92f3955477.tif</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           ├── mdg_pop_2022_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/W7/v3/MD5E-s56604771--7b28e04c5ee93d5caeaa30865ecd530a.tif/MD5E-s56604771--7b28e04c5ee93d5caeaa30865ecd530a.tif</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           ├── mdg_pop_2023_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/6X/J6/MD5E-s56794041--863068d9901e071acb549d82bc01f440.tif/MD5E-s56794041--863068d9901e071acb549d82bc01f440.tif</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           ├── mdg_pop_2024_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/KV/VF/MD5E-s56929621--87b1f848bac413258c18ebd4ed5b6a72.tif/MD5E-s56929621--87b1f848bac413258c18ebd4ed5b6a72.tif</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>           └── mdg_pop_2025_CN_100m_R2025A_v1.tif <span class="at">-</span><span class="op">&gt;</span> ../.git/annex/objects/w0/1z/MD5E-s57081947--22e130dbc04dd9ef7d941a56532fdcad.tif/MD5E-s57081947--22e130dbc04dd9ef7d941a56532fdcad.tif</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> raw</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We used <code>datalad</code> to confirm and manage the addition of the data to the Gold Mine</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /n/holylabs/LABS/cgolden_lab/Lab/frontier/gold_mine/02_prospects/WorldPop-dot-org</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">datalad</span> create-sibling <span class="at">-d</span> data/processed/datalad <span class="at">--name</span> prospect <span class="at">--existing</span> reconfigure /n/holylabs/LABS/cgolden_lab/Lab/frontier/gold_mine/02_prospects/WorldPop-dot-org</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>And pushed the results:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datalad</span> push <span class="at">-d</span> data/processed/datalad <span class="at">--to</span> prospect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This keeps the data up to date and accessible, while retaining version control over which versions of the data are “most recent”.</p>
-<p>To make sure the data is available, we leave the data in an <code>unlock</code> state. While this means that anyone can modify the data, we have two stop-gaps that prevent errors:</p>
+<section id="dataset-summary" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-summary">Dataset Summary</h2>
+<p><strong>Dataset name:</strong><br>
+#TODO</p>
+<p><strong>Short description:</strong><br>
+#TODO: Describe what this dataset contains in 2–4 sentences.</p>
+<p><strong>Primary use case:</strong><br>
+#TODO: Explain the main research or operational question this dataset supports.</p>
+<p><strong>Dataset status:</strong><br>
+#TODO: draft / active development / reviewed / published / archived</p>
+<p><strong>Last updated:</strong><br>
+#TODO: <code>YYYY-MM-DD</code></p>
+</section>
+<section id="should-you-use-this-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="should-you-use-this-dataset">Should You Use This Dataset?</h2>
+<p>Use this dataset if:</p>
+<ul>
+<li>#TODO</li>
+<li>#TODO</li>
+<li>#TODO</li>
+</ul>
+<p>Do <strong>not</strong> use this dataset if:</p>
+<ul>
+<li>#TODO</li>
+<li>#TODO</li>
+<li>#TODO</li>
+</ul>
+<p>Known limitations:</p>
+<ul>
+<li>#TODO</li>
+<li>#TODO</li>
+<li>#TODO</li>
+</ul>
+</section>
+<section id="data-contents" class="level2">
+<h2 class="anchored" data-anchor-id="data-contents">Data Contents</h2>
+<section id="tables-files" class="level3">
+<h3 class="anchored" data-anchor-id="tables-files">Tables / Files</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Path</th>
+<th>Description</th>
+<th style="text-align: right;">Format</th>
+<th>Unit of observation</th>
+<th>Key columns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>data/...</code></td>
+<td>#TODO</td>
+<td style="text-align: right;">CSV/Parquet/GeoTIFF/etc.</td>
+<td>#TODO</td>
+<td>#TODO</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="key-variables" class="level3">
+<h3 class="anchored" data-anchor-id="key-variables">Key Variables</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+<th>Units / categories</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>#TODO</code></td>
+<td>#TODO</td>
+<td>#TODO</td>
+<td>#TODO</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="spatial-and-temporal-coverage" class="level2">
+<h2 class="anchored" data-anchor-id="spatial-and-temporal-coverage">Spatial and Temporal Coverage</h2>
+<p><strong>Geographic coverage:</strong><br>
+#TODO</p>
+<p><strong>Spatial resolution:</strong><br>
+#TODO</p>
+<p><strong>Temporal coverage:</strong><br>
+#TODO</p>
+<p><strong>Temporal resolution:</strong><br>
+#TODO</p>
+</section>
+<section id="provenance" class="level2">
+<h2 class="anchored" data-anchor-id="provenance">Provenance</h2>
+<section id="source-data" class="level3">
+<h3 class="anchored" data-anchor-id="source-data">Source Data</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Source</th>
+<th>Description</th>
+<th>Access URL / DOI</th>
+<th>Date accessed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>#TODO</td>
+<td>#TODO</td>
+<td>#TODO</td>
+<td>#TODO</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="processing-summary" class="level3">
+<h3 class="anchored" data-anchor-id="processing-summary">Processing Summary</h3>
+<p>#TODO: Summarize how raw/source data became this dataset.</p>
+<p>Example:</p>
 <ol type="1">
-<li>We have established a culture of data staging through manifests using the <code>stagecoach</code> tool, meaning that most lab members are unlikely to instinctively touch the data by hand. Instead, they’re more likely to use <code>stagecoach</code> to symlink the data into their project.</li>
-<li>We still have this repository of the raw data generation procedure, including the git trail of what we did to get the data into the prospect folder. If anything were to go wrong in <code>02_Prospects</code>, we still have this repo.</li>
+<li>Downloaded source data from #TODO.</li>
+<li>Harmonized variable names and units.</li>
+<li>Filtered records to #TODO.</li>
+<li>Aggregated to #TODO.</li>
+<li>Exported final dataset to #TODO.</li>
 </ol>
+</section>
+</section>
+<section id="reproducibility" class="level2">
+<h2 class="anchored" data-anchor-id="reproducibility">Reproducibility</h2>
+<p><strong>Pipeline / code repository:</strong><br>
+#TODO</p>
+<p><strong>Main processing script or workflow:</strong><br>
+#TODO</p>
+<p><strong>Software environment:</strong><br>
+#TODO: Docker / Singularity / renv / uv / conda / Spack</p>
+<p><strong>Rebuild command:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#TODO</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="datalad-information" class="level2">
+<h2 class="anchored" data-anchor-id="datalad-information">DataLad Information</h2>
+<p>This dataset is managed with DataLad to preserve version history, file availability, and reproducible data access.</p>
+<section id="dataset-location" class="level3">
+<h3 class="anchored" data-anchor-id="dataset-location">Dataset Location</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#TODO: datalad dataset path</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="current-dataset-state" class="level3">
+<h3 class="anchored" data-anchor-id="current-dataset-state">Current Dataset State</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> path/to/dataset rev-parse HEAD</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> path/to/dataset log <span class="at">--oneline</span> <span class="at">--decorate</span> <span class="at">-n</span> 5</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">datalad</span> <span class="at">-C</span> path/to/dataset status</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="siblings-remotes" class="level3">
+<h3 class="anchored" data-anchor-id="siblings-remotes">Siblings / Remotes</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datalad</span> <span class="at">-C</span> path/to/dataset siblings query</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Known siblings:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sibling</th>
+<th>Purpose</th>
+<th style="text-align: right;">Contains Git history</th>
+<th style="text-align: right;">Contains file content</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>origin</code></td>
+<td>#TODO</td>
+<td style="text-align: right;">yes/no</td>
+<td style="text-align: right;">yes/no</td>
+<td>#TODO</td>
+</tr>
+<tr class="even">
+<td><code>#TODO</code></td>
+<td>#TODO</td>
+<td style="text-align: right;">yes/no</td>
+<td style="text-align: right;">yes/no</td>
+<td>#TODO</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="getting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="getting-the-data">Getting the Data</h3>
+<p>Clone the dataset:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datalad</span> clone <span class="co">#TODO_URL path/to/local/dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Get file content:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datalad</span> <span class="at">-C</span> path/to/local/dataset get .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Get a specific file or folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datalad</span> <span class="at">-C</span> path/to/local/dataset get path/to/file</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check availability:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datalad</span> <span class="at">-C</span> path/to/local/dataset status <span class="at">--annex</span> availability</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="access-and-permissions" class="level2">
+<h2 class="anchored" data-anchor-id="access-and-permissions">Access and Permissions</h2>
+<p><strong>Access level:</strong><br>
+#TODO: public / lab-internal / restricted / controlled access</p>
+<p><strong>Sensitive data:</strong><br>
+#TODO: yes/no; describe restrictions if applicable</p>
+<p><strong>Who can use this dataset:</strong><br>
+#TODO</p>
+<p><strong>How to request access:</strong><br>
+#TODO</p>
+</section>
+<section id="recommended-citation" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-citation">Recommended Citation</h2>
+<p>#TODO: Provide citation, DOI, or preferred acknowledgement.</p>
+<pre class="text"><code>#TODO</code></pre>
+</section>
+<section id="contact" class="level2">
+<h2 class="anchored" data-anchor-id="contact">Contact</h2>
+<p><strong>Dataset maintainer:</strong><br>
+#TODO</p>
+<p><strong>Lab / group:</strong><br>
+#TODO</p>
+<p><strong>Contact:</strong><br>
+#TODO</p>
+</section>
+<section id="changelog" class="level2">
+<h2 class="anchored" data-anchor-id="changelog">Changelog</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Change</th>
+<th>Person</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>YYYY-MM-DD</code></td>
+<td>#TODO</td>
+<td>#TODO</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
